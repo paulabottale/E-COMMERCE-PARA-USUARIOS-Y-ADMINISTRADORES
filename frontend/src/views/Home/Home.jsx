@@ -9,6 +9,8 @@ const Home = () => {
   const [error, setError] = useState(null)
   const [isEditing, setIsEditing] = useState(null)
   const [productEditing, setProductEditing] = useState(null)
+  const [search, setSearch] = useState("");
+
 
 
   const { user, logout, token } = useAuth()
@@ -34,6 +36,23 @@ const Home = () => {
   useEffect(() => {
     fetchingProducts()
   }, [])
+
+
+  useEffect(() => {
+    if (search === "") return;
+  const handleSearch = async () => {
+      try {
+        const res = await fetch('http://localhost:1234/api/products/search?search=${encodeURIComponent(search)}');
+        const data = await res.json();
+        setProducts(data.data || []);
+      } catch (error) {
+        console.error("Error al buscar productos", error);
+      }
+    };
+
+    handleSearch();
+  }, [search]);
+
 
 
   const handleDelete = async (product) => {

@@ -42,7 +42,7 @@ const Home = () => {
     if (search === "") return;
   const handleSearch = async () => {
       try {
-        const res = await fetch('http://localhost:1234/api/products/search?search=${encodeURIComponent(search)}');
+        const res = await fetch(`http://localhost:1234/api/products/search?search=${encodeURIComponent(search)}`);
         const data = await res.json();
         setProducts(data.data || []);
       } catch (error) {
@@ -86,6 +86,21 @@ const Home = () => {
     <Layout>
       <h1>Lista de productos</h1>
       {user && <p>Bienvenido, {user.email}</p>}
+      <div className="search-conteiner">
+      <input className="search-input"
+          id="searchInput"
+          type="text"
+          placeholder="Buscar producto..."
+          value={search || ""}
+          onChange={(e) => setSearch(e.target.value || "")}
+        />
+
+        <div id="results" style={{ marginTop: "20px" }}>
+          {products.map((product) => (
+            <div key={product._id}>{product.title}</div>
+          ))}
+        </div>
+      </div>
       {error && <>
         <div className="error-home">
           <h2>{error}</h2>

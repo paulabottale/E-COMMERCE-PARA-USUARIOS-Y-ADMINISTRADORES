@@ -37,9 +37,9 @@ npm install
 npm run dev
 
 Variables necesarias en backend/.env:
-PORT=1234
-MONGO_URI=mongodb://localhost:27017/api-auth
-JWT_SECRET=22diciembre99
+PORT=
+MONGO_URI=
+JWT_SECRET=
 
 ### ejecutar el frontend
 
